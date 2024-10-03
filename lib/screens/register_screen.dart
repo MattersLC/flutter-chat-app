@@ -19,9 +19,9 @@ class RegisterScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Logo(title: 'Registro'),
+                const Logo(title: 'Registro'),
                 _Form(),
-                Labels(
+                const Labels(
                   route: 'login',
                   question: '¿Ya tienes una cuenta?',
                   actionText: '¡Ingresa ahora!',

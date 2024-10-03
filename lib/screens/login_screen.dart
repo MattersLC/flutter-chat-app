@@ -19,9 +19,9 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Logo(title: 'Messenger'),
+                const Logo(title: 'Messenger'),
                 _Form(),
-                Labels(
+                const Labels(
                   route: 'register',
                   question: '¿No tienes cuenta?',
                   actionText: '¡Crea una ahora!',
