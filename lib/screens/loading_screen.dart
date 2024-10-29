@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:chat_app/screens/login_screen.dart';
-import 'package:chat_app/screens/users_screen.dart';
-
 import 'package:chat_app/services/auth_service.dart';
+import 'package:chat_app/services/socket_service.dart';
+
+import 'package:chat_app/screens/login_screen.dart';
+import 'package:chat_app/screens/home_screen.dart';
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({super.key});
@@ -15,8 +16,10 @@ class LoadingScreen extends StatelessWidget {
       body: FutureBuilder(
         future: checkLoginState(context),
         builder: (context, snapshot) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Center(
+            child: CircularProgressIndicator(
+              color: Theme.of(context).highlightColor,
+            ),
           );
         },
       ),
@@ -25,21 +28,20 @@ class LoadingScreen extends StatelessWidget {
 
   Future checkLoginState(BuildContext context) async {
     final authService = Provider.of<AuthService>(context, listen: false);
+    final socketService = Provider.of<SocketService>(context);
 
     final authenticated = await authService.isLoggedIn();
 
-    print('hello?');
     if (authenticated) {
-      // TODO: Conectar al socket server
+      socketService.connect();
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          pageBuilder: (_, __, ___) => const UsersScreen(),
+          pageBuilder: (_, __, ___) => const HomeScreen(),
           transitionDuration: const Duration(milliseconds: 0),
         ),
       );
     } else {
-      print('hello login');
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(

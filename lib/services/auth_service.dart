@@ -23,14 +23,14 @@ class AuthService with ChangeNotifier {
 
   // Getters estáticos del token
   static Future<String> getToken() async {
-    final _storage = new FlutterSecureStorage();
-    final token = await _storage.read(key: 'token');
+    const storage = FlutterSecureStorage();
+    final token = await storage.read(key: 'token');
     return token!;
   }
 
   static Future<void> deleteToken() async {
-    final _storage = new FlutterSecureStorage();
-    final token = await _storage.delete(key: 'token');
+    const storage = FlutterSecureStorage();
+    await storage.delete(key: 'token');
   }
 
   Future<bool> login(String email, String password) async {
@@ -60,11 +60,13 @@ class AuthService with ChangeNotifier {
     }
   }
 
-  Future register(String name, String email, String password) async {
+  Future register(
+      String name, String lastName, String email, String password) async {
     authenticating = true;
 
     final data = {
       'name': name,
+      'lastName': lastName,
       'email': email,
       'password': password,
     };

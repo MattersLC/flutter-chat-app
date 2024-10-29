@@ -1,3 +1,4 @@
+import 'package:chat_app/global/chat_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomInput extends StatelessWidget {
@@ -18,15 +19,16 @@ class CustomInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 5, left: 5, bottom: 5, right: 20),
+      //padding: const EdgeInsets.only(top: 5, left: 5, bottom: 5, right: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 5),
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(30)),
+        color: ChatColors.secondaryLight,
+        borderRadius: const BorderRadius.all(Radius.circular(30)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            offset: Offset(0, 5),
+            color: Colors.black.withOpacity(0.1),
+            offset: const Offset(0, 5),
             blurRadius: 5,
           )
         ],
@@ -37,10 +39,20 @@ class CustomInput extends StatelessWidget {
         keyboardType: keyboardType,
         obscureText: isPassword,
         decoration: InputDecoration(
+          fillColor: ChatColors.secondaryLight,
+          filled: true,
           prefixIcon: Icon(icon),
-          focusedBorder: InputBorder.none,
-          border: InputBorder.none,
+          prefixIconColor: ChatColors.grayLight,
           hintText: placeholder,
+          hintStyle: const TextStyle(color: ChatColors.grayLight),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30.0),
+            borderSide: BorderSide.none,
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 16.0,
+            horizontal: 20.0,
+          ),
         ),
       ),
     );

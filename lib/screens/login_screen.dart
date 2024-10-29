@@ -1,13 +1,17 @@
-import 'package:chat_app/helpers/show_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:chat_app/services/auth_service.dart';
+import 'package:chat_app/services/socket_service.dart';
+
+import 'package:chat_app/helpers/show_alert.dart';
 
 import 'package:chat_app/widgets/custom_input.dart';
-import 'package:chat_app/widgets/labels.dart';
-import 'package:chat_app/widgets/login_button.dart';
-import 'package:chat_app/widgets/logo.dart';
+import 'package:chat_app/widgets/login/labels.dart';
+import 'package:chat_app/widgets/login/login_button.dart';
+import 'package:chat_app/widgets/login/logo.dart';
+
+import 'package:chat_app/global/chat_colors.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -15,21 +19,21 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F2F2),
+      backgroundColor: ChatColors.primaryLight,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Container(
+          child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.9,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Logo(title: 'Messenger'),
+                const Logo(title: 'Core Chat'),
                 _Form(),
                 const Labels(
                   route: 'register',
                   question: '¿No tienes cuenta?',
-                  actionText: '¡Crea una ahora!',
+                  actionText: '¡Registrate ahora!',
                 ),
                 const Text(
                   'Terminos y condiciones de uso',
@@ -58,9 +62,10 @@ class __FormState extends State<_Form> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
 
     return Container(
-      margin: const EdgeInsets.only(top: 40),
+      margin: const EdgeInsets.only(top: 5),
       padding: const EdgeInsets.symmetric(horizontal: 50),
       child: Column(
         children: [
@@ -90,8 +95,8 @@ class __FormState extends State<_Form> {
                         emailCtrl.text.trim(), passCtrl.text.trim());
 
                     if (loginOk) {
-                      // TODO: Conectar al socket server
-                      Navigator.pushReplacementNamed(context, 'users');
+                      socketService.connect();
+                      Navigator.pushReplacementNamed(context, 'home');
                     } else {
                       showAlert(context, 'Login incorrecto',
                           'Revise sus credenciales');
