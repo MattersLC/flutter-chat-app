@@ -4,7 +4,9 @@ class ChatColors {
   // Defaults
   static const Color mint = Color(0xFF5EB181);
   static const Color rose = Color(0xFFE57373);
-  static const Color contrast = Color(0xFF1659F3);
+  //static const Color contrast = Color(0xFF00796B);
+  static const Color contrast = Color(0xFF4A90E2);
+  //static const Color contrast = Color(0xFF27496D);
   static const Color black = Color(0xFF000000);
   static const Color white = Color(0xFFFFFFFF);
 

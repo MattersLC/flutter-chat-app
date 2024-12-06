@@ -1,4 +1,3 @@
-import 'package:chat_app/global/chat_colors.dart';
 import 'package:flutter/material.dart';
 
 class Labels extends StatelessWidget {
@@ -19,7 +18,7 @@ class Labels extends StatelessWidget {
         Text(
           question,
           style: const TextStyle(
-            color: Colors.black54,
+            //color: Colors.black54,
             fontSize: 15,
             fontWeight: FontWeight.w300,
           ),
@@ -31,8 +30,8 @@ class Labels extends StatelessWidget {
           },
           child: Text(
             actionText,
-            style: const TextStyle(
-              color: ChatColors.mint,
+            style: TextStyle(
+              color: Theme.of(context).highlightColor,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),

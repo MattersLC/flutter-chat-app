@@ -19,30 +19,28 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ChatColors.primaryLight,
+      //backgroundColor: ChatColors.primaryLight,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.9,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Logo(title: 'Sign Up'),
-                _Form(),
-                const Labels(
-                  route: 'login',
-                  question: 'Already have an account?',
-                  actionText: '¡Ingresa ahora!',
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Logo(title: 'Sign Up'),
+              _Form(),
+              const SizedBox(height: 30,),
+              const Labels(
+                route: 'login',
+                question: 'Already have an account?',
+                actionText: '¡Ingresa ahora!',
+              ),
+              const Text(
+                'Terminos y condiciones de uso',
+                style: TextStyle(
+                  fontWeight: FontWeight.w200,
                 ),
-                const Text(
-                  'Terminos y condiciones de uso',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w200,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

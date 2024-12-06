@@ -15,7 +15,7 @@ class LoginButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 2,
-        backgroundColor: ChatColors.mint,
+        //backgroundColor: ChatColors.mint,
       ),
       onPressed: onPressed,
       child: SizedBox(

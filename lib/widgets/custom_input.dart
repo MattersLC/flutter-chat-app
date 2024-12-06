@@ -18,16 +18,18 @@ class CustomInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       //padding: const EdgeInsets.only(top: 5, left: 5, bottom: 5, right: 20),
       padding: const EdgeInsets.symmetric(horizontal: 5),
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: ChatColors.secondaryLight,
+        color: theme.cardColor,
         borderRadius: const BorderRadius.all(Radius.circular(30)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: theme.shadowColor.withOpacity(0.1),
             offset: const Offset(0, 5),
             blurRadius: 5,
           )
@@ -39,7 +41,7 @@ class CustomInput extends StatelessWidget {
         keyboardType: keyboardType,
         obscureText: isPassword,
         decoration: InputDecoration(
-          fillColor: ChatColors.secondaryLight,
+          fillColor: Theme.of(context).cardColor,
           filled: true,
           prefixIcon: Icon(icon),
           prefixIconColor: ChatColors.grayLight,

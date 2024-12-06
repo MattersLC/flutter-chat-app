@@ -17,6 +17,7 @@ class ChatMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: false);
+    final theme = Theme.of(context);
 
     return FadeTransition(
       opacity: animationController,
@@ -24,25 +25,25 @@ class ChatMessage extends StatelessWidget {
         sizeFactor:
             CurvedAnimation(parent: animationController, curve: Curves.easeOut),
         child: Container(
-          child: uid == authService.user!.uid ? _myMessage() : _otherMessage(),
+          child: uid == authService.user!.uid ? _myMessage(theme) : _otherMessage(),
         ),
       ),
     );
   }
 
-  Widget _myMessage() {
+  Widget _myMessage(dynamic theme) {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        padding: EdgeInsets.all(8),
-        margin: EdgeInsets.only(bottom: 5, left: 50, right: 5),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        margin: const EdgeInsets.only(bottom: 5, left: 50, right: 10),
         decoration: BoxDecoration(
-          color: Color(0xFF4D9EF6),
+          color: theme.highlightColor,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
           text,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );
@@ -52,15 +53,15 @@ class ChatMessage extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        padding: EdgeInsets.all(8),
-        margin: EdgeInsets.only(bottom: 5, left: 5, right: 50),
+        padding: const EdgeInsets.all(8),
+        margin: const EdgeInsets.only(bottom: 5, left: 5, right: 50),
         decoration: BoxDecoration(
-          color: Color(0xFFE4E5E8),
+          color: const Color(0xFFE4E5E8),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
           text,
-          style: TextStyle(color: Colors.black87),
+          style: const TextStyle(color: Colors.black87),
         ),
       ),
     );

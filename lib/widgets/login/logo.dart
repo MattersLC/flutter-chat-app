@@ -25,10 +25,10 @@ class Logo extends StatelessWidget {
             //const SizedBox(height: 20),
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
-                color: ChatColors.mint,
+                color: Theme.of(context).highlightColor,
               ),
             ),
           ],

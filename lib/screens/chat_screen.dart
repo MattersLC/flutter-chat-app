@@ -76,27 +76,38 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final userDestination = chatService.userDestination;
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: theme.secondaryHeaderColor,
         elevation: 1,
         centerTitle: false,
         title: Row(
           children: [
             CircleAvatar(
-              backgroundColor: Colors.blue[100],
-              maxRadius: 14,
+              backgroundColor: theme.primaryColor,
+              maxRadius: 20,
               child: Text(
                 userDestination.name.substring(0, 2),
-                style: const TextStyle(fontSize: 12, color: Colors.blueAccent),
+                style: TextStyle(fontSize: 12, color: theme.highlightColor),
               ),
             ),
-            const SizedBox(width: 3),
-            Text(
-              userDestination.name,
-              style: const TextStyle(color: Colors.black87, fontSize: 12),
-            )
+            const SizedBox(width: 5),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  userDestination.name,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  userDestination.online ? 'Online' : 'Offline',
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ],
+            ),
+            
           ],
         ),
       ),
@@ -112,7 +123,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
           ),
           const Divider(height: 1),
           Container(
-            color: Colors.white,
+            //color: Colors.white,
             child: _inputChat(),
           )
         ],
@@ -123,7 +134,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   Widget _inputChat() {
     return SafeArea(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 8),
+        margin: const EdgeInsets.symmetric(horizontal: 8),
         child: Row(
           children: [
             Flexible(

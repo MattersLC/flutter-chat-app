@@ -7,6 +7,7 @@ class ThemeService with ChangeNotifier {
   final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     primaryColor: ChatColors.primaryDark,
+    shadowColor: ChatColors.white,
     secondaryHeaderColor: ChatColors.secondaryDark,
     cardColor: ChatColors.secondaryDark,
     dividerColor: ChatColors.secondaryDark,
@@ -38,11 +39,17 @@ class ThemeService with ChangeNotifier {
       trackColor: WidgetStateProperty.all<Color>(ChatColors.contrast),
       trackOutlineColor: WidgetStateProperty.all<Color>(ChatColors.primaryDark),
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all<Color>(ChatColors.contrast),
+      ),
+    ),
   );
 
   final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     primaryColor: ChatColors.primaryLight,
+    shadowColor: ChatColors.black,
     secondaryHeaderColor: ChatColors.secondaryLight,
     cardColor: ChatColors.secondaryLight,
     dividerColor: ChatColors.secondaryLight,
@@ -72,6 +79,11 @@ class ThemeService with ChangeNotifier {
     switchTheme: SwitchThemeData(
       thumbColor: WidgetStateProperty.all<Color>(ChatColors.contrast),
       trackColor: WidgetStateProperty.all<Color>(ChatColors.secondaryLight),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all<Color>(ChatColors.contrast),
+      ),
     ),
   );
 

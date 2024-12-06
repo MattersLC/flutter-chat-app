@@ -53,14 +53,15 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         centerTitle: false,
         title: ValueListenableBuilder(
-            valueListenable: indexScreen,
-            builder: (context, index, child) {
-              return Text(
-                titles[indexScreen.value],
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
-              );
-            }),
+          valueListenable: indexScreen,
+          builder: (context, index, child) {
+            return Text(
+              titles[indexScreen.value],
+              style:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+            );
+          },
+        ),
         elevation: 1,
         actions: [
           Container(
@@ -68,14 +69,21 @@ class _HomeScreenState extends State<HomeScreen> {
             child: socketService.serverStatus == ServerStatus.Online
                 ? const Icon(Icons.offline_bolt,
                     color: ChatColors.mint, size: 30)
-                : const Icon(Icons.offline_bolt, color: Colors.red, size: 30),
+                : const Icon(Icons.offline_bolt, color: ChatColors.rose, size: 30),
           ),
           Container(
             margin: const EdgeInsets.only(right: 16),
-            child: const Icon(
-              Icons.add_circle_outline,
-              size: 30,
+            child: const Badge(
+              backgroundColor: ChatColors.rose,
+              child: Icon(
+                Icons.notifications,
+                size: 30,
+              ),
             ),
+            /*child: const Icon(
+              Icons.notifications,
+              size: 30,
+            ),*/
           ),
         ],
       ),

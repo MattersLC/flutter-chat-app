@@ -11,6 +11,7 @@ class ChatTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      tileColor: Theme.of(context).primaryColor,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
