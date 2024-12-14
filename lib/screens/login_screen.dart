@@ -11,20 +11,17 @@ import 'package:chat_app/widgets/login/labels.dart';
 import 'package:chat_app/widgets/login/login_button.dart';
 import 'package:chat_app/widgets/login/logo.dart';
 
-import 'package:chat_app/global/chat_colors.dart';
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: ChatColors.primaryLight,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.9,
+            height: MediaQuery.of(context).size.height * 0.85,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -92,14 +89,15 @@ class __FormState extends State<_Form> {
 
                     // Inicia autenticación
                     final loginOk = await authService.login(
-                        emailCtrl.text.trim(), passCtrl.text.trim());
+                      emailCtrl.text.trim(), 
+                      passCtrl.text.trim()
+                    );
 
-                    if (loginOk) {
+                    if (loginOk.isEmpty) {
                       socketService.connect();
                       Navigator.pushReplacementNamed(context, 'home');
                     } else {
-                      showAlert(context, 'Login incorrecto',
-                          'Revise sus credenciales');
+                      showAlert(context, 'Bad Login', loginOk);
                     }
                   },
           ),

@@ -15,14 +15,14 @@ import 'package:chat_app/models/chat.dart';
 import 'package:chat_app/widgets/chats/chat_tile.dart';
 import 'package:chat_app/global/chat_colors.dart';
 
-class ChatsSCreen extends StatefulWidget {
-  const ChatsSCreen({super.key});
+class ChatsScreen extends StatefulWidget {
+  const ChatsScreen({super.key});
 
   @override
-  State<ChatsSCreen> createState() => _ChatsSCreenState();
+  State<ChatsScreen> createState() => _ChatsScreenState();
 }
 
-class _ChatsSCreenState extends State<ChatsSCreen> {
+class _ChatsScreenState extends State<ChatsScreen> {
   //final userService = UsersService();
   final chatsService = ChatsService();
   late User user;
@@ -41,26 +41,26 @@ class _ChatsSCreenState extends State<ChatsSCreen> {
     final authService = Provider.of<AuthService>(context);
     final socketService = Provider.of<SocketService>(context);
     user = authService.user!;
+    final theme = Theme.of(context);
 
     return Scaffold(
-      //backgroundColor: ChatColors.primaryLight,
       body: SmartRefresher(
         controller: _refreshController,
         enablePullDown: true,
         onRefresh: _loadChats,
-        header: const WaterDropHeader(
+        header: WaterDropHeader(
           complete: Icon(
             Icons.check,
-            color: ChatColors.mint,
+            color: theme.highlightColor,
           ),
-          waterDropColor: ChatColors.mint,
+          waterDropColor: theme.highlightColor,
         ),
         child: _buildBody(),
       ),
     );
   }
 
-  Widget _buildBody() {
+  /*Widget _buildBody() {
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -143,7 +143,96 @@ class _ChatsSCreenState extends State<ChatsSCreen> {
         ],
       ),
     );
+  }*/
+
+  Widget _buildBody() {
+    List<Chat> pinnedChats = chats.where((chat) => chat.isPinned).toList(); // Adjust this line based on your chat model
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: CustomSearchBar(
+              label: 'Search chat...',
+            ),
+          ),
+          const SizedBox(height: 20),
+          if (pinnedChats.isNotEmpty)
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'PINNED MESSAGES',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          if (pinnedChats.isNotEmpty)
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (_, i) => ChatTile(chat: pinnedChats[i]),
+              itemCount: pinnedChats.length,
+            ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              'ALL MESSAGES',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: chats.length,
+            itemBuilder: (context, i) {
+              return Slidable(
+                  key: Key(i.toString()),
+                  startActionPane: ActionPane(
+                    motion: const ScrollMotion(),
+                    children: [
+                      SlidableAction(
+                        onPressed: (context) {
+                          // Action for swiping right
+                          print('Pinned - ${user.uid}');
+                        },
+                        backgroundColor: ChatColors.mint,
+                        foregroundColor: ChatColors.primaryLight,
+                        icon: Icons.push_pin_outlined,
+                        label: 'Pin',
+                      ),
+                    ],
+                  ),
+                  endActionPane: ActionPane(
+                    motion: const ScrollMotion(),
+                    children: [
+                      SlidableAction(
+                        onPressed: (context) {
+                          // Action for swiping left
+                          print('Swiped left');
+                        },
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                        icon: Icons.delete,
+                        label: 'Delete',
+                      ),
+                    ],
+                  ),
+                  child: ChatTile(chat: chats[i]));
+            },
+          )
+        ],
+      ),
+    );
   }
+
 
   ListView _listViewUsers() {
     return ListView.builder(

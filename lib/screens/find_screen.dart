@@ -56,10 +56,11 @@ class _FindScreenState extends State<FindScreen> {
         ),
         const SizedBox(height: 20),
         ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: users.length,
-            itemBuilder: (_, i) => UserTile(user: users[i])),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: users.length,
+          itemBuilder: (_, i) => UserTile(user: users[i]),
+        ),
       ],
     );
   }

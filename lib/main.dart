@@ -1,5 +1,5 @@
-import 'package:chat_app/global/chat_colors.dart';
-import 'package:chat_app/services/friend_request_service.dart';
+//import 'package:chat_app/services/friend_request_service.dart';
+import 'package:chat_app/services/friends_service.dart';
 import 'package:chat_app/services/theme_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => AuthService()),
         ChangeNotifierProvider(create: (_) => SocketService()),
         ChangeNotifierProvider(create: (_) => ChatService()),
-        ChangeNotifierProvider(create: (_) => FriendRequestService()),
+        ChangeNotifierProvider(create: (_) => FriendsService()),
       ],
       child: Consumer<ThemeService>(
         builder: (context, themeService, _) {

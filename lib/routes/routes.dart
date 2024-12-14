@@ -1,3 +1,5 @@
+import 'package:chat_app/screens/friend_requests_screen.dart';
+import 'package:chat_app/screens/friends_screen.dart';
 import 'package:chat_app/screens/find_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/screens/chat_screen.dart';
@@ -12,6 +14,8 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'login': (_) => const LoginScreen(),
   'register': (_) => const RegisterScreen(),
   'home': (_) => const HomeScreen(),
+  'contacts': (_) => const FriendsScreen(),
   'chat': (_) => const ChatScreen(),
   'find': (_) => const FindScreen(),
+  'friend-requests': (_) => FriendRequestsScreen(),
 };

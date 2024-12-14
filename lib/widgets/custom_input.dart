@@ -1,7 +1,8 @@
 import 'package:chat_app/global/chat_colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class CustomInput extends StatelessWidget {
+class CustomInput extends StatefulWidget {
   final IconData icon;
   final String placeholder;
   final TextEditingController textController;
@@ -15,6 +16,19 @@ class CustomInput extends StatelessWidget {
     this.isPassword = false,
     super.key,
   });
+
+  @override
+  State<CustomInput> createState() => _CustomInputState();
+}
+
+class _CustomInputState extends State<CustomInput> {
+  bool _obscureText = true;
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +51,17 @@ class CustomInput extends StatelessWidget {
       ),
       child: TextField(
         autocorrect: false,
-        controller: textController,
-        keyboardType: keyboardType,
-        obscureText: isPassword,
+        controller: widget.textController,
+        keyboardType: widget.keyboardType,
+        obscureText: widget.isPassword && _obscureText,
         decoration: InputDecoration(
           fillColor: Theme.of(context).cardColor,
           filled: true,
-          prefixIcon: Icon(icon),
+          prefixIcon: Icon(widget.icon),
           prefixIconColor: ChatColors.grayLight,
-          hintText: placeholder,
+          suffixIcon: widget.isPassword ? IconButton(onPressed: _togglePasswordVisibility, icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility)) : null,
+          suffixIconColor: ChatColors.grayLight,
+          hintText: widget.placeholder,
           hintStyle: const TextStyle(color: ChatColors.grayLight),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30.0),

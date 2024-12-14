@@ -91,13 +91,11 @@ class ThemeService with ChangeNotifier {
   ThemeData get themeData => _themeData;
 
   ThemeService() {
-    print('hello there!');
     StorageManager.readData('themeMode').then((value) {
       var themeMode = value ?? 'light';
       if (themeMode == 'light') {
         _themeData = lightTheme;
       } else {
-        print('setting dark theme');
         _themeData = darkTheme;
       }
       notifyListeners();

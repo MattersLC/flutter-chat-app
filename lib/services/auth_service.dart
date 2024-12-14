@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -33,30 +34,43 @@ class AuthService with ChangeNotifier {
     await storage.delete(key: 'token');
   }
 
-  Future<bool> login(String email, String password) async {
+  Future<String> login(String email, String password) async {
     authenticating = true;
     final data = {
       'email': email,
       'password': password,
     };
 
-    final res = await http.post(
-      Uri.parse('${Environment.apiUrl}/login'),
-      body: jsonEncode(data),
-      headers: {'Content-Type': 'application/json'},
-    );
+    try {
+      final res = await http.post(
+        Uri.parse('${Environment.apiUrl}/login'),
+        body: jsonEncode(data),
+        headers: {'Content-Type': 'application/json'},
+      );
 
-    authenticating = false;
+      authenticating = false;
 
-    if (res.statusCode == 200) {
-      final loginResponse = loginResponseFromJson(res.body);
-      user = loginResponse.user;
+      if (res.statusCode == 200) {
+        final loginResponse = loginResponseFromJson(res.body);
+        user = loginResponse.user;
 
-      await _saveToken(loginResponse.token);
+        await _saveToken(loginResponse.token);
 
-      return true;
-    } else {
-      return false;
+        return '';
+      } else if (res.statusCode == 401) {
+        return 'Review your credentials.';
+      } else {
+        return 'Unexpected error: ${res.statusCode}';
+      }
+    } on SocketException {
+      authenticating = false;
+      return 'Connection was refused';
+    } on HttpException {
+      authenticating = false;
+      return 'There\'s an error while connecting with the server';
+    } catch (error) {
+      authenticating = false;
+      return 'Unexpected error: $error';
     }
   }
 
@@ -99,22 +113,26 @@ class AuthService with ChangeNotifier {
       return false;
     }
 
-    final res = await http.get(
-      Uri.parse('${Environment.apiUrl}/login/renew'),
-      headers: {
-        'Content-Type': 'application/json',
-        'x-token': token,
-      },
-    );
+    try {
+      final res = await http.get(
+        Uri.parse('${Environment.apiUrl}/login/renew'),
+        headers: {
+          'Content-Type': 'application/json',
+          'x-token': token,
+        },
+      );
 
-    if (res.statusCode == 200) {
-      final loginResponse = loginResponseFromJson(res.body);
-      user = loginResponse.user;
-      await _saveToken(loginResponse.token);
+      if (res.statusCode == 200) {
+        final loginResponse = loginResponseFromJson(res.body);
+        user = loginResponse.user;
+        await _saveToken(loginResponse.token);
 
-      return true;
-    } else {
-      _logOut();
+        return true;
+      } else {
+        _logOut();
+        return false;
+      }
+    } catch (error) {
       return false;
     }
   }

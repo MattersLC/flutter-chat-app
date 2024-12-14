@@ -1,3 +1,4 @@
+import 'package:chat_app/screens/friends_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late AuthService authService;
   late SocketService socketService;
 
-  List<String> titles = ['Chat', 'Calls', 'Contacts', 'Find', 'Settings'];
+  List<String> titles = ['Chat', 'Calls', 'Friends', 'Find', 'Settings'];
 
   @override
   void initState() {
@@ -98,7 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, index, child) {
         switch (index) {
           case 0: // Chats
-            return const ChatsSCreen();
+            return const ChatsScreen();
+          case 2: // Contacts
+            return const FriendsScreen();
           case 3:
             return const FindScreen();
           case 4:

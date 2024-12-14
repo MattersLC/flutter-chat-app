@@ -9,7 +9,7 @@ import 'package:chat_app/helpers/show_action_alert.dart';
 import 'package:chat_app/models/user.dart';
 
 import 'package:chat_app/services/chat_service.dart';
-import 'package:chat_app/services/friend_request_service.dart';
+import 'package:chat_app/services/friends_service.dart';
 
 class UserTile extends StatefulWidget {
   final User user;
@@ -23,10 +23,8 @@ class _UserTileState extends State<UserTile> {
   bool requestSent = false;
 
   void _sendFriendRequest(BuildContext context) async {
-    final friendRequestService =
-        Provider.of<FriendRequestService>(context, listen: false);
-    bool success =
-        await friendRequestService.sendFriendRequest(widget.user.uid);
+    final friendsService = Provider.of<FriendsService>(context, listen: false);
+    bool success = await friendsService.sendFriendRequest(widget.user.uid);
     if (success) {
       setState(() {
         requestSent = true;
@@ -52,7 +50,7 @@ class _UserTileState extends State<UserTile> {
       leading: Stack(
         children: [
           CircleAvatar(
-            backgroundColor: ChatColors.secondaryLight,
+            backgroundColor: theme.secondaryHeaderColor,
             child: Text(
               widget.user.name.substring(0, 2),
               style: TextStyle(color: theme.hintColor),
@@ -75,7 +73,7 @@ class _UserTileState extends State<UserTile> {
       ),
       trailing: IconButton(
         icon: requestSent
-            ? const Icon(Icons.person_add_disabled, color: ChatColors.grayLight)
+            ? const Icon(Icons.person_remove_alt_1_outlined, color: ChatColors.grayLight)
             : const Icon(Icons.person_add_alt, color: ChatColors.contrast),
         onPressed: requestSent
             ? null

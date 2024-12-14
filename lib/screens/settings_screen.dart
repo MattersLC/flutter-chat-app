@@ -28,12 +28,11 @@ class SettingsScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         children: [
-          UserLabel(user: authService.user!),
+          UserLabel(user: authService.user!, onTap: (){},),
           const SizedBox(height: 20),
           SettingsLabel(
             icon: Icons.support_outlined,
             title: 'Support',
-            color: theme.hintColor,
             topRadius: 15,
             onTap: () {},
           ),

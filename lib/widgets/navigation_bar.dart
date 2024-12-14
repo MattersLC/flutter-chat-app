@@ -40,8 +40,8 @@ class GNavigationBar extends StatelessWidget {
             text: 'Calls',
           ),
           GButton(
-            icon: Icons.contacts_outlined,
-            text: 'Contacts',
+            icon: Icons.people_alt_outlined,
+            text: 'Friends',
           ),
           GButton(
             icon: Icons.public,
