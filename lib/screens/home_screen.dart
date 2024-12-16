@@ -68,9 +68,22 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             margin: const EdgeInsets.only(right: 10),
             child: socketService.serverStatus == ServerStatus.Online
-                ? const Icon(Icons.offline_bolt,
-                    color: ChatColors.mint, size: 30)
-                : const Icon(Icons.offline_bolt, color: ChatColors.rose, size: 30),
+                ? Tooltip(
+                    message: 'You\'re online',
+                    child: Icon(
+                      Icons.offline_bolt, 
+                      color: ChatColors.mint, 
+                      size: 30,
+                    ),
+                  )
+                : Tooltip(
+                    message: 'You\'re offline',
+                    child: Icon(
+                      Icons.offline_bolt, 
+                      color: ChatColors.rose, 
+                      size: 30,
+                    ),
+                  )
           ),
           Container(
             margin: const EdgeInsets.only(right: 16),

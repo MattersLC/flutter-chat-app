@@ -1,8 +1,10 @@
+import 'package:chat_app/services/chat_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chat_app/services/friends_service.dart';
 
 import 'package:chat_app/models/friend.dart';
+import 'package:provider/provider.dart';
 
 class FriendTile extends StatefulWidget {
   final Friend friend;
@@ -24,6 +26,7 @@ class FriendTile extends StatefulWidget {
 }
 
 class _FriendTileState extends State<FriendTile> {
+  // TODO: Eliminar loadFriends, friendService y volverlo un StatelessWidget
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -39,6 +42,14 @@ class _FriendTileState extends State<FriendTile> {
         widget.friend.email,
         style: TextStyle(color: theme.hintColor),
       ),
+      onTap: !widget.isRequest && !widget.isRequestSent ? () {
+        final chatService = Provider.of<ChatService>(context, listen: false);
+        chatService.uid = widget.friend.uid;
+        chatService.name = widget.friend.name;
+        chatService.online = widget.friend.online;
+
+        Navigator.pushNamed(context, 'chat');
+      } : null,
       leading: Stack(
         children: [
           CircleAvatar(
@@ -80,16 +91,14 @@ class _FriendTileState extends State<FriendTile> {
             icon: Icon(Icons.cancel_outlined),
             color: theme.indicatorColor,
             onPressed: () async {
-              print('hello???');
               response = await widget.friendService.respondFriendRequest(widget.friend.uid, false);
-              print('something - $response');
               await widget.loadFriends;
             },
           ),
         ],
       ) : widget.isRequestSent ?
       IconButton(icon: Icon(Icons.cancel), color: theme.indicatorColor, onPressed: (){}) :
-      IconButton(icon: Icon(Icons.navigate_next), onPressed: () {},),
+      Icon(Icons.navigate_next),
     );
   }
 }

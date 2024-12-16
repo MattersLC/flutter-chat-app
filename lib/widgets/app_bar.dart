@@ -22,8 +22,14 @@ class ChatAppBar extends AppBar {
             Container(
               margin: const EdgeInsets.only(right: 10),
               child: status == ServerStatus.Online
-                  ? const Icon(Icons.offline_bolt,
-                      color: ChatColors.mint, size: 30)
+                  ? IconButton(
+                      icon: Icon(Icons.offline_bolt),
+                      color: ChatColors.mint, 
+                      iconSize: 30,
+                      onPressed: () {
+                        print('clickkkk');
+                      },
+                    )
                   : const Icon(Icons.offline_bolt, color: Colors.red, size: 30),
             ),
             Container(

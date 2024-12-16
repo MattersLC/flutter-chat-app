@@ -40,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 
     socketService.socket.on('personal-message', _listenMessage);
 
-    _loadHistory(chatService.userDestination.uid);
+    _loadHistory(chatService.uid);
   }
 
   void _loadHistory(String userID) async {
@@ -75,7 +75,9 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final userDestination = chatService.userDestination;
+    //final userDestination = chatService.userDestination;
+    final userName = chatService.name;
+    final userOnline = chatService.online;
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -89,7 +91,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
               backgroundColor: theme.primaryColor,
               maxRadius: 20,
               child: Text(
-                userDestination.name.substring(0, 2),
+                userName.substring(0, 2),
                 style: TextStyle(fontSize: 12, color: theme.highlightColor),
               ),
             ),
@@ -98,11 +100,11 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  userDestination.name,
+                  userName,
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  userDestination.online ? 'Online' : 'Offline',
+                  userOnline ? 'Online' : 'Offline',
                   style: const TextStyle(fontSize: 12),
                 ),
               ],
@@ -210,7 +212,7 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 
     socketService.emit('personal-message', {
       'from': authService.user!.uid,
-      'to': chatService.userDestination.uid,
+      'to': chatService.uid,
       'message': text,
     });
   }

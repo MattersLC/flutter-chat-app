@@ -79,18 +79,18 @@ class _UserTileState extends State<UserTile> {
             ? null
             : () => showActionAlert(
                   context,
-                  'Add contact?',
+                  'Sent friend request to ${widget.user.name}?',
                   'Add',
                   ChatColors.contrast,
                   () => _sendFriendRequest(context),
                 ),
       ),
-      onTap: () {
+      /*onTap: () {
         final chatService = Provider.of<ChatService>(context, listen: false);
         chatService.userDestination = widget.user;
 
         Navigator.pushNamed(context, 'chat');
-      },
+      },*/
     );
   }
 }

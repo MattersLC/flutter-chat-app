@@ -10,8 +10,9 @@ class ChatTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ListTile(
-      tileColor: Theme.of(context).primaryColor,
+      tileColor: theme.primaryColor,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,7 +44,7 @@ class ChatTile extends StatelessWidget {
       leading: Stack(
         children: [
           CircleAvatar(
-            backgroundColor: ChatColors.secondaryLight,
+            backgroundColor: theme.secondaryHeaderColor,
             child: Text(
               chat.user.name.substring(0, 2),
               style: const TextStyle(color: ChatColors.grayLight),
@@ -57,7 +58,7 @@ class ChatTile extends StatelessWidget {
               height: 12,
               decoration: BoxDecoration(
                 color:
-                    chat.user.online ? ChatColors.mint : ChatColors.grayLight,
+                    chat.user.online ? ChatColors.mint : theme.hintColor,
                 borderRadius: BorderRadius.circular(100),
                 border: Border.all(color: ChatColors.primaryLight, width: 2),
               ),
@@ -67,7 +68,10 @@ class ChatTile extends StatelessWidget {
       ),
       onTap: () {
         final chatService = Provider.of<ChatService>(context, listen: false);
-        chatService.userDestination = chat.user;
+        //chatService.userDestination = chat.user;
+        chatService.uid = chat.user.uid;
+        chatService.name = chat.user.name;
+        chatService.online = chat.user.online;
 
         Navigator.pushNamed(context, 'chat');
       },

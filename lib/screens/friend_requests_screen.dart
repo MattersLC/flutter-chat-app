@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -67,9 +67,9 @@ class FriendRequestsScreen extends StatelessWidget {
     );
   }
 }
+*/
 
-
-/*import 'package:chat_app/models/friend.dart';
+import 'package:chat_app/models/friend.dart';
 import 'package:chat_app/services/friends_service.dart';
 import 'package:chat_app/widgets/friends/friend_tile.dart';
 import 'package:flutter/material.dart';
@@ -86,6 +86,7 @@ class _FriendRequestsScreenState extends State<FriendRequestsScreen> {
   final friendsService = FriendsService();
   List<Friend> friendRequests = [];
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
+  final ValueNotifier<bool> _isLoading = ValueNotifier(true);
 
   @override
   void initState() {
@@ -115,21 +116,34 @@ class _FriendRequestsScreenState extends State<FriendRequestsScreen> {
           ),
           waterDropColor: theme.highlightColor,
         ),
-        child: _buildBody(),
+        child: ValueListenableBuilder(
+          valueListenable: _isLoading, 
+          builder: (context, isLoading, child) {
+            return _isLoading.value ?
+            _loading() :
+            _buildBody();
+          }
+        ),
       ),
     );
   }
 
+  Widget _loading() {
+    return Center(child: CircularProgressIndicator(color: Theme.of(context).highlightColor,),);
+  }
+
   Widget _buildBody() {
-    return ListView.builder(
+    return friendRequests.isEmpty ? 
+    Center(child: Text('There\'s no new friend requests'),) :
+    ListView.builder(
       shrinkWrap: true,
+      itemCount: friendRequests.length,
       itemBuilder: (_, i) => FriendTile(
         friend: friendRequests[i],
         friendService: friendsService,
         loadFriends: _loadFriendRequests,
         isRequest: true,
       ),
-      itemCount: friendRequests.length,
     );
   }
 
@@ -137,5 +151,6 @@ class _FriendRequestsScreenState extends State<FriendRequestsScreen> {
     friendRequests = await friendsService.getFriendRequests();
     setState(() {});
     _refreshController.refreshCompleted();
+    _isLoading.value = false;
   }
-}*/
+}

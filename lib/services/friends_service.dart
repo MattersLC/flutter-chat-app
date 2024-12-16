@@ -31,10 +31,10 @@ class FriendsService with ChangeNotifier {
         }
       );
 
-      print(res.body);
+      //print(res.body);
       final friendsResponse = friendsResponseFromJson(res.body);
-      print('here needs to be something');
-      print(friendsResponse);
+      _friends = friendsResponse.friends;
+      notifyListeners();
       return friendsResponse.friends;
     } catch (error) {
       return [];
@@ -152,6 +152,9 @@ class FriendsService with ChangeNotifier {
       );
 
       if (res.statusCode == 200) {
+        if (isAccepted) {
+          await getFriends();
+        }
         return '';
       } else {
         return 'Unexpected error: ${res.statusCode}';

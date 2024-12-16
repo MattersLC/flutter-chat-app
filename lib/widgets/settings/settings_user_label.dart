@@ -37,12 +37,6 @@ class UserLabel extends StatelessWidget {
               style: TextStyle(color: theme.highlightColor),
             ),
           ),
-          onTap: () {
-            //final chatService = Provider.of<ChatService>(context, listen: false);
-            //chatService.userDestination = user;
-    
-            //Navigator.pushNamed(context, 'chat');
-          },
         ),
         Container(
           color: theme.dividerColor,

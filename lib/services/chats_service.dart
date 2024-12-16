@@ -23,10 +23,10 @@ class ChatsService with ChangeNotifier {
         },
       );
 
-      print(res.body);
+      //print(res.body);
       final chatsResponse = chatsResponseFromJson(res.body);
-      print('so?');
-      print(chatsResponse);
+      //print('so?');
+      //print(chatsResponse);
       return chatsResponse.chats;
     } catch (error) {
       return [];

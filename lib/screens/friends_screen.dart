@@ -1,4 +1,4 @@
-import 'package:chat_app/models/friend.dart';
+/*import 'package:chat_app/models/friend.dart';
 import 'package:chat_app/services/friends_service.dart';
 import 'package:chat_app/widgets/custom_search_bar.dart';
 import 'package:chat_app/widgets/friends/friends_label.dart';
@@ -50,6 +50,7 @@ class FriendsScreen extends StatelessWidget {
                 waterDropColor: theme.highlightColor,
               ),
               child: _buildBody(
+                context: context,
                 friends: friends,
                 totalFriendRequests: totalFriendRequests,
                 totalSentFriendRequests: totalSentFriendRequests,
@@ -62,6 +63,7 @@ class FriendsScreen extends StatelessWidget {
   }
 
   Widget _buildBody({
+    required BuildContext context,
     required List<Friend> friends,
     required int totalFriendRequests,
     required int totalSentFriendRequests,
@@ -83,14 +85,14 @@ class FriendsScreen extends StatelessWidget {
             title: 'Friend requests',
             amount: totalFriendRequests,
             topRadius: 15,
-            onTap: () {},//=> Navigator.of(context).pushNamed('friend-requests'),
+            onTap: () => Navigator.of(context).pushNamed('friend-requests'),
           ),
           FriendsLabel(
             icon: Icons.person_add_alt_1, 
             title: 'Sent friend requests',
             amount: totalSentFriendRequests,
             bottomRadius: 15,
-            onTap: () {},//=> Navigator.of(context).pushNamed('sent-friend-requests'),
+            onTap: () => Navigator.of(context).pushNamed('sent-friend-requests'),
           ),
           const SizedBox(height: 20),
           ListView.builder(
@@ -103,14 +105,16 @@ class FriendsScreen extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
 
-/*import 'package:chat_app/models/friend.dart';
+import 'package:chat_app/models/friend.dart';
 import 'package:chat_app/services/friends_service.dart';
 import 'package:chat_app/widgets/custom_search_bar.dart';
+import 'package:chat_app/widgets/friends/friend_tile.dart';
 import 'package:chat_app/widgets/friends/friends_label.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class FriendsScreen extends StatefulWidget {
@@ -136,6 +140,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    //final friendsProvider = Provider.of<FriendsService>(context);
 
     return Scaffold(
       body: SmartRefresher(
@@ -182,12 +187,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
             onTap: () => Navigator.of(context).pushNamed('sent-friend-requests'),
           ),
           const SizedBox(height: 20),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: friends.length,
-            itemBuilder: (_, i) => ListTile(title: Text(friends[i].name),),
-          ),
+          _listViewFriends(),
         ],
       ),
     );
@@ -197,16 +197,19 @@ class _FriendsScreenState extends State<FriendsScreen> {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (_, i) => ListTile(title: Text(friends[i].name),),
-      itemCount: friends.length,
+      itemBuilder: (_, i) => FriendTile(
+        friend: friendsService.friends[i], 
+        friendService: friendsService
+      ),
+      itemCount: friendsService.friends.length,
     );
   }
 
   void _loadFriends() async {
-    friends = await friendsService.getFriends();
+    await friendsService.getFriends();
     totalFriendRequests = await friendsService.getTotalFriendRequests();
     totalSentFriendRequests = await friendsService.getTotalSentFriendRequests();
     setState(() {});
     _refreshController.refreshCompleted();
   }
-}*/
+}

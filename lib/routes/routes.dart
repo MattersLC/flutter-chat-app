@@ -1,7 +1,7 @@
 import 'package:chat_app/screens/friend_requests_screen.dart';
 import 'package:chat_app/screens/friends_screen.dart';
 import 'package:chat_app/screens/find_screen.dart';
-import 'package:chat_app/screens/sent_friend_requests.dart';
+import 'package:chat_app/screens/sent_friend_requests_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/screens/chat_screen.dart';
 import 'package:chat_app/screens/loading_screen.dart';
