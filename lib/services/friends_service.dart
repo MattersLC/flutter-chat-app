@@ -14,6 +14,13 @@ import 'package:chat_app/models/sent_friend_requests_response.dart';
 import 'package:chat_app/models/friend.dart';
 
 class FriendsService with ChangeNotifier {
+  List<Friend> _friends = [];
+  List<Friend> _friendRequests = []; 
+  List<Friend> _sentFriendRequests = [];
+  List<Friend> get friends => _friends;
+  List<Friend> get friendRequests => _friendRequests;
+  List<Friend> get sentFriendRequests => _sentFriendRequests;
+
   Future<List<Friend>> getFriends() async {
     try {
       final res = await http.get(
@@ -24,8 +31,10 @@ class FriendsService with ChangeNotifier {
         }
       );
 
+      print(res.body);
       final friendsResponse = friendsResponseFromJson(res.body);
-
+      print('here needs to be something');
+      print(friendsResponse);
       return friendsResponse.friends;
     } catch (error) {
       return [];
@@ -43,7 +52,28 @@ class FriendsService with ChangeNotifier {
       );
 
       final friendsResponse = friendsResponseFromJson(res.body);
-      print(res.body);
+      _friendRequests = friendsResponse.friends;
+      notifyListeners();
+
+      return friendsResponse.friends;
+    } catch (error) {
+      return [];
+    }
+  }
+
+  Future<List<Friend>> getSentFriendRequests() async {
+    try {
+      final res = await http.get(
+        Uri.parse('${Environment.apiUrl}/friends/sent-friend-requests'),
+        headers: {
+          'Content-Type': 'application/json',
+          'x-token': await AuthService.getToken(),
+        }
+      );
+
+      final friendsResponse = friendsResponseFromJson(res.body);
+      _sentFriendRequests = friendsResponse.friends;
+      notifyListeners();
 
       return friendsResponse.friends;
     } catch (error) {
@@ -109,7 +139,6 @@ class FriendsService with ChangeNotifier {
 
   Future<String> respondFriendRequest(String toUserId, bool isAccepted) async {
     try {
-      print('so here we are');
       final res = await http.post(
         Uri.parse('${Environment.apiUrl}/friends/respond-friend-request'),
         headers: {
@@ -121,9 +150,6 @@ class FriendsService with ChangeNotifier {
           "isAccepted": isAccepted
         }),
       );
-      print('hell no');
-
-      print(res.body);
 
       if (res.statusCode == 200) {
         return '';
