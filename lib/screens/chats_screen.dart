@@ -188,46 +188,53 @@ class _ChatsScreenState extends State<ChatsScreen> {
               ),
             ),
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: chats.length,
-            itemBuilder: (context, i) {
-              return Slidable(
-                  key: Key(i.toString()),
-                  startActionPane: ActionPane(
-                    motion: const ScrollMotion(),
-                    children: [
-                      SlidableAction(
-                        onPressed: (context) {
-                          // Action for swiping right
-                          print('Pinned - ${user.uid}');
-                        },
-                        backgroundColor: ChatColors.mint,
-                        foregroundColor: ChatColors.primaryLight,
-                        icon: Icons.push_pin_outlined,
-                        label: 'Pin',
-                      ),
-                    ],
-                  ),
-                  endActionPane: ActionPane(
-                    motion: const ScrollMotion(),
-                    children: [
-                      SlidableAction(
-                        onPressed: (context) {
-                          // Action for swiping left
-                          print('Swiped left');
-                        },
-                        backgroundColor: Colors.red,
-                        foregroundColor: Colors.white,
-                        icon: Icons.delete,
-                        label: 'Delete',
-                      ),
-                    ],
-                  ),
-                  child: ChatTile(chat: chats[i]));
-            },
-          )
+          if (chats.isNotEmpty)
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: chats.length,
+              itemBuilder: (context, i) {
+                return Slidable(
+                    key: Key(i.toString()),
+                    startActionPane: ActionPane(
+                      motion: const ScrollMotion(),
+                      children: [
+                        SlidableAction(
+                          onPressed: (context) {
+                            // Action for swiping right
+                            print('Pinned - ${user.uid}');
+                          },
+                          backgroundColor: ChatColors.mint,
+                          foregroundColor: ChatColors.primaryLight,
+                          icon: Icons.push_pin_outlined,
+                          label: 'Pin',
+                        ),
+                      ],
+                    ),
+                    endActionPane: ActionPane(
+                      motion: const ScrollMotion(),
+                      children: [
+                        SlidableAction(
+                          onPressed: (context) {
+                            // Action for swiping left
+                            print('Swiped left');
+                          },
+                          backgroundColor: Colors.red,
+                          foregroundColor: Colors.white,
+                          icon: Icons.delete,
+                          label: 'Delete',
+                        ),
+                      ],
+                    ),
+                    child: ChatTile(chat: chats[i]));
+              },
+            ),
+          Container(
+            alignment: Alignment.center,
+            height: 300,
+            child: Text('There\'s no chats yet'),
+          ),
+          //Center(child: Text('There\'s no chats yet'),)
         ],
       ),
     );

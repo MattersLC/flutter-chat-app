@@ -94,7 +94,7 @@ class FriendsService with ChangeNotifier {
       //print(res.body);
       final data = friendRequestsResponseFromJson(res.body);
 
-      return data.friendRequests;
+      return data.totalFriendRequests;
     } catch (error) {
       return 0;
     }
@@ -113,7 +113,7 @@ class FriendsService with ChangeNotifier {
       //print(res.body);
       final data = sentFriendRequestsResponseFromJson(res.body);
 
-      return data.sentFriendRequests;
+      return data.totalSentFriendRequests;
     } catch (error) {
       return 0;
     }

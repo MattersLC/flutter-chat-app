@@ -6,24 +6,24 @@ String sentFriendRequestsResponseToJson(SentFriendRequestsResponse data) => json
 
 class SentFriendRequestsResponse {
   bool ok;
-  int sentFriendRequests;
+  int totalSentFriendRequests;
   int desde;
 
   SentFriendRequestsResponse({
     required this.ok,
-    required this.sentFriendRequests,
+    required this.totalSentFriendRequests,
     required this.desde,
   });
 
   factory SentFriendRequestsResponse.fromJson(Map<String, dynamic> json) => SentFriendRequestsResponse(
     ok: json["ok"],
-    sentFriendRequests: json["sentFriendRequests"],
+    totalSentFriendRequests: json["totalSentFriendRequests"],
     desde: json["desde"],
   );
 
   Map<String, dynamic> toJson() => {
     "ok": ok,
-    "sentFriendRequests": sentFriendRequests,
+    "totalSentFriendRequests": totalSentFriendRequests,
     "desde": desde,
   };
 }

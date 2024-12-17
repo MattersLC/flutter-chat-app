@@ -7,12 +7,12 @@ class User {
   dynamic lastConnection;
   String profilePicture;
   List<dynamic> pinnedChats;
-  List<dynamic> friends;
-  List<dynamic> blocked;
+  //List<dynamic> friends;
+  //List<dynamic> blocked;
   String userName;
   DateTime createdAt;
   DateTime updatedAt;
-  List<dynamic> friendRequests;
+  //List<dynamic> friendRequests;
   String uid;
 
   User({
@@ -24,12 +24,12 @@ class User {
     required this.lastConnection,
     required this.profilePicture,
     required this.pinnedChats,
-    required this.friends,
-    required this.blocked,
+    //required this.friends,
+    //required this.blocked,
     required this.userName,
     required this.createdAt,
     required this.updatedAt,
-    required this.friendRequests,
+    //required this.friendRequests,
     required this.uid,
   });
 
@@ -42,13 +42,12 @@ class User {
     lastConnection: json["lastConnection"],
     profilePicture: json["profilePicture"],
     pinnedChats: List<dynamic>.from(json["pinnedChats"].map((x) => x)),
-    friends: List<dynamic>.from(json["friends"].map((x) => x)),
-    blocked: List<dynamic>.from(json["blocked"].map((x) => x)),
+    /*friends: List<dynamic>.from(json["friends"].map((x) => x)),
+    blocked: List<dynamic>.from(json["blocked"].map((x) => x)),*/
     userName: json["userName"],
     createdAt: DateTime.parse(json["createdAt"]),
     updatedAt: DateTime.parse(json["updatedAt"]),
-    friendRequests:
-        List<dynamic>.from(json["friendRequests"].map((x) => x)),
+    //friendRequests: List<dynamic>.from(json["friendRequests"].map((x) => x)),
     uid: json["uid"],
   );
 
@@ -61,12 +60,12 @@ class User {
     "lastConnection": lastConnection,
     "profilePicture": profilePicture,
     "pinnedChats": List<dynamic>.from(pinnedChats.map((x) => x)),
-    "friends": List<dynamic>.from(friends.map((x) => x)),
-    "blocked": List<dynamic>.from(blocked.map((x) => x)),
+    //"friends": List<dynamic>.from(friends.map((x) => x)),
+    //"blocked": List<dynamic>.from(blocked.map((x) => x)),
     "userName": userName,
     "createdAt": createdAt.toIso8601String(),
     "updatedAt": updatedAt.toIso8601String(),
-    "friendRequests": List<dynamic>.from(friendRequests.map((x) => x)),
+    //"friendRequests": List<dynamic>.from(friendRequests.map((x) => x)),
     "uid": uid,
   };
 }

@@ -6,24 +6,24 @@ String friendRequestsResponseToJson(FriendRequestsResponse data) => json.encode(
 
 class FriendRequestsResponse {
   bool ok;
-  int friendRequests;
+  int totalFriendRequests;
   int desde;
 
   FriendRequestsResponse({
     required this.ok,
-    required this.friendRequests,
+    required this.totalFriendRequests,
     required this.desde,
   });
 
   factory FriendRequestsResponse.fromJson(Map<String, dynamic> json) => FriendRequestsResponse(
     ok: json["ok"],
-    friendRequests: json["friendRequests"],
+    totalFriendRequests: json["totalFriendRequests"],
     desde: json["desde"],
   );
 
   Map<String, dynamic> toJson() => {
     "ok": ok,
-    "friendRequests": friendRequests,
+    "totalFriendRequests": totalFriendRequests,
     "desde": desde,
   };
 }
