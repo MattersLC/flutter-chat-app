@@ -1,3 +1,4 @@
+import 'package:chat_app/helpers/show_action_alert.dart';
 import 'package:chat_app/services/chat_service.dart';
 import 'package:flutter/material.dart';
 
@@ -83,16 +84,35 @@ class _FriendTileState extends State<FriendTile> {
             icon: Icon(Icons.check_circle_outline),
             color: theme.focusColor,
             onPressed: () async {
-              widget.friendService.respondFriendRequest(widget.friend.uid, true);
-              widget.loadFriends;
+              showActionAlert(
+                context,
+                'Accept Friend Request?',
+                'Accept',
+                theme.focusColor,
+                () async {
+                  widget.friendService.respondFriendRequest(widget.friend.uid, true);
+                  widget.loadFriends;
+                  Navigator.of(context).pop();
+                }
+              );
             },
           ),
           IconButton(
             icon: Icon(Icons.cancel_outlined),
             color: theme.indicatorColor,
             onPressed: () async {
-              response = await widget.friendService.respondFriendRequest(widget.friend.uid, false);
-              await widget.loadFriends;
+              showActionAlert(
+                context,
+                'Reject Friend Request?',
+                'Reject',
+                theme.indicatorColor,
+                () async {
+                  response = await widget.friendService.respondFriendRequest(widget.friend.uid, false);
+                  await widget.loadFriends;
+                  Navigator.of(context).pop();
+                }
+              );
+              //
             },
           ),
         ],
