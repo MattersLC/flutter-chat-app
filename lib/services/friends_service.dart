@@ -119,7 +119,7 @@ class FriendsService with ChangeNotifier {
     }
   }
 
-  Future<bool> sendFriendRequest(String toUserId) async {
+  Future<bool> sendFriendRequest(String relatedUserId) async {
     final token = await AuthService.getToken();
     final response = await http.post(
       Uri.parse('${Environment.apiUrl}/friends/send-friend-request'),
@@ -127,7 +127,10 @@ class FriendsService with ChangeNotifier {
         'Content-Type': 'application/json',
         'x-token': token,
       },
-      body: jsonEncode({ "toUserId": toUserId }),
+      body: jsonEncode({
+        "relatedUserId": relatedUserId,
+        "status": 'pending',
+      }),
     );
 
     if (response.statusCode == 200) {
