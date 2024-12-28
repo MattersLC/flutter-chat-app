@@ -5,7 +5,7 @@ import 'package:chat_app/global/environment.dart';
 
 import 'package:chat_app/services/auth_service.dart';
 
-import 'package:chat_app/models/user.dart';
+import 'package:chat_app/models/loggedin_user.dart';
 import 'package:chat_app/models/message_response.dart';
 
 class ChatService with ChangeNotifier {

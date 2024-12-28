@@ -1,17 +1,15 @@
-import 'package:chat_app/models/user.dart';
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
+import 'package:chat_app/services/auth_service.dart';
+
 class UserLabel extends StatelessWidget {
-  final User user;
-  final Function() onTap;
-  const UserLabel({
-    required this.user,
-    required this.onTap,
-    super.key
-  });
+  const UserLabel({ super.key });
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     final theme = Theme.of(context);
 
     return Column(
@@ -25,15 +23,15 @@ class UserLabel extends StatelessWidget {
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16),
           title: Text(
-            user.name,
+            '${authService.user!.name} ${authService.user!.lastName}',
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          subtitle: Text(user.email),
+          subtitle: Text(authService.user!.about),
           leading: CircleAvatar(
             radius: 30,
             backgroundColor: theme.primaryColor,
             child: Text(
-              user.name.substring(0, 2),
+              authService.user!.name.substring(0, 2),
               style: TextStyle(color: theme.highlightColor),
             ),
           ),
@@ -50,9 +48,9 @@ class UserLabel extends StatelessWidget {
             ),
           ),
           leading: Icon(Icons.person_outline),
-          title: Text('Ver perfil'),
+          title: Text('Profile details'),
           trailing: Icon(Icons.navigate_next),
-          onTap: onTap,
+          onTap: () => Navigator.of(context).pushNamed('profile-details'),
         ),
       ],
     );

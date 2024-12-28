@@ -10,7 +10,7 @@ import 'package:chat_app/services/chats_service.dart';
 //import 'package:chat_app/services/users_service.dart';
 //import 'package:chat_app/services/chat_service.dart';
 
-import 'package:chat_app/models/user.dart';
+import 'package:chat_app/models/loggedin_user.dart';
 import 'package:chat_app/models/chat.dart';
 import 'package:chat_app/widgets/chats/chat_tile.dart';
 import 'package:chat_app/global/chat_colors.dart';
@@ -25,7 +25,7 @@ class ChatsScreen extends StatefulWidget {
 class _ChatsScreenState extends State<ChatsScreen> {
   //final userService = UsersService();
   final chatsService = ChatsService();
-  late User user;
+  late LoggedinUser user;
   List<Chat> chats = [];
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);

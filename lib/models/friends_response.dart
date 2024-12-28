@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:chat_app/models/friend.dart';
+import 'package:chat_app/models/user.dart';
 
 FriendsResponse friendsResponseFromJson(String str) =>
     FriendsResponse.fromJson(json.decode(str));
@@ -7,7 +7,7 @@ String friendsResponseToJson(FriendsResponse data) => json.encode(data.toJson())
 
 class FriendsResponse {
   bool ok;
-  List<Friend> friends;
+  List<User> friends;
   int desde;
 
   FriendsResponse({
@@ -18,7 +18,7 @@ class FriendsResponse {
 
   factory FriendsResponse.fromJson(Map<String, dynamic> json) => FriendsResponse(
     ok: json["ok"],
-    friends: List<Friend>.from(json["friends"].map((x) => Friend.fromJson(x))),
+    friends: List<User>.from(json["friends"].map((x) => User.fromJson(x))),
     desde: json["desde"],
   );
 

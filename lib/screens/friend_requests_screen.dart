@@ -69,8 +69,8 @@ class FriendRequestsScreen extends StatelessWidget {
 }
 */
 
-import 'package:chat_app/models/friend.dart';
-import 'package:chat_app/services/friends_service.dart';
+import 'package:chat_app/models/user.dart';
+import 'package:chat_app/services/users_service.dart';
 import 'package:chat_app/widgets/friends/friend_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -83,8 +83,8 @@ class FriendRequestsScreen extends StatefulWidget {
 }
 
 class _FriendRequestsScreenState extends State<FriendRequestsScreen> {
-  final friendsService = FriendsService();
-  List<Friend> friendRequests = [];
+  final friendsService = UsersService();
+  List<User> friendRequests = [];
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
   final ValueNotifier<bool> _isLoading = ValueNotifier(true);
 
@@ -140,7 +140,6 @@ class _FriendRequestsScreenState extends State<FriendRequestsScreen> {
       itemCount: friendRequests.length,
       itemBuilder: (_, i) => FriendTile(
         friend: friendRequests[i],
-        friendService: friendsService,
         loadFriends: _loadFriendRequests,
         isRequest: true,
       ),

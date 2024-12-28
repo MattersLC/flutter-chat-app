@@ -1,7 +1,7 @@
-import 'package:chat_app/models/user.dart';
+import 'package:chat_app/models/loggedin_user.dart';
 
 class Chat {
-  User user;
+  LoggedinUser user;
   //String id;
   //String name;
   String lastMessage;
@@ -20,7 +20,7 @@ class Chat {
   });
 
   factory Chat.fromJson(Map<String, dynamic> json) => Chat(
-    user: User.fromJson(json["user"]),
+    user: LoggedinUser.fromJson(json["user"]),
     //id: json["_id"],
     //name: json["name"],
     lastMessage: json["lastMessage"],

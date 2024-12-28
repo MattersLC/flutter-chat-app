@@ -4,6 +4,7 @@ import 'package:chat_app/services/users_service.dart';
 import 'package:chat_app/widgets/custom_search_bar.dart';
 import 'package:chat_app/widgets/find/user_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class FindScreen extends StatefulWidget {
@@ -14,10 +15,9 @@ class FindScreen extends StatefulWidget {
 }
 
 class _FindScreenState extends State<FindScreen> {
-  final usersService = UsersService();
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-  List<User> users = [];
+  //final usersService = UsersService();
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
+  //List<User> users = [];
 
   @override
   void initState() {
@@ -27,6 +27,8 @@ class _FindScreenState extends State<FindScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final usersService = Provider.of<UsersService>(context);
+    
     return Scaffold(
       body: SmartRefresher(
         controller: _refreshController,
@@ -39,12 +41,12 @@ class _FindScreenState extends State<FindScreen> {
           ),
           waterDropColor: Theme.of(context).highlightColor,
         ),
-        child: _buildBody(),
+        child: _buildBody(usersService.users),
       ),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(List<User> users) {
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 10),
       children: [
@@ -66,7 +68,8 @@ class _FindScreenState extends State<FindScreen> {
   }
 
   void _loadUsers() async {
-    users = await usersService.getUsers();
+    final usersService = Provider.of<UsersService>(context, listen: false);
+    await usersService.getUsers();
     setState(() {});
     _refreshController.refreshCompleted();
   }

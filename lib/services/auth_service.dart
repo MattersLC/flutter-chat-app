@@ -5,13 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import 'package:chat_app/models/user.dart';
+import 'package:chat_app/models/loggedin_user.dart';
 import 'package:chat_app/models/login_response.dart';
 
 import 'package:chat_app/global/environment.dart';
 
 class AuthService with ChangeNotifier {
-  User? user;
+  LoggedinUser? _user;
+  LoggedinUser? get user => _user;
   bool _authenticating = false;
 
   final _storage = new FlutterSecureStorage();
@@ -50,18 +51,14 @@ class AuthService with ChangeNotifier {
 
       authenticating = false;
 
-      if (res.statusCode == 200) {
-        final loginResponse = loginResponseFromJson(res.body);
-        user = loginResponse.user;
+      final loginResponse = loginResponseFromJson(res.body);
+      _user = loginResponse.user;
 
+      if (loginResponse.token != '') {
         await _saveToken(loginResponse.token);
-
-        return '';
-      } else if (res.statusCode == 401) {
-        return 'Review your credentials.';
-      } else {
-        return 'Unexpected error: ${res.statusCode}';
       }
+
+      return loginResponse.message;
     } on SocketException {
       authenticating = false;
       return 'Connection was refused';
@@ -95,7 +92,7 @@ class AuthService with ChangeNotifier {
 
     if (res.statusCode == 200) {
       final loginResponse = loginResponseFromJson(res.body);
-      user = loginResponse.user;
+      _user = loginResponse.user;
       await _saveToken(loginResponse.token);
 
       return true;
@@ -124,7 +121,7 @@ class AuthService with ChangeNotifier {
 
       if (res.statusCode == 200) {
         final loginResponse = loginResponseFromJson(res.body);
-        user = loginResponse.user;
+        _user = loginResponse.user;
         await _saveToken(loginResponse.token);
 
         return true;

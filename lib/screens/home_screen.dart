@@ -11,14 +11,6 @@ import 'package:chat_app/screens/chats_screen.dart';
 
 import 'package:chat_app/widgets/navigation_bar.dart';
 import 'package:chat_app/global/chat_colors.dart';
-//import 'package:flutter_slidable/flutter_slidable.dart';
-//import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-//import 'package:chat_app/services/users_service.dart';
-//import 'package:chat_app/services/chat_service.dart';
-
-//import 'package:chat_app/models/user.dart';
-//import 'package:chat_app/widgets/chat_tile.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

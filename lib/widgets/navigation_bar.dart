@@ -30,7 +30,7 @@ class GNavigationBar extends StatelessWidget {
         },
         padding: const EdgeInsets.all(16),
         selectedIndex: currentScreen.value,
-        tabs: const [
+        tabs: [
           GButton(
             icon: Icons.message_outlined,
             text: 'Chats',

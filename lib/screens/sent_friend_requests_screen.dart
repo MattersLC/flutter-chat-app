@@ -1,5 +1,5 @@
-import 'package:chat_app/models/friend.dart';
-import 'package:chat_app/services/friends_service.dart';
+import 'package:chat_app/models/user.dart';
+import 'package:chat_app/services/users_service.dart';
 import 'package:chat_app/widgets/friends/friend_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,8 +10,8 @@ class SentFriendRequests extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final friendsService = Provider.of<FriendsService>(context);
-    List<Friend> sentFriendRequests = []; 
+    final friendsService = Provider.of<UsersService>(context);
+    //List<User> sentFriendRequests = []; 
     final RefreshController _refreshController = RefreshController(initialRefresh: true);
     final theme = Theme.of(context);
 
@@ -44,7 +44,6 @@ class SentFriendRequests extends StatelessWidget {
           itemBuilder:(_, i) => FriendTile(
             friend: friendsService.sentFriendRequests[i],
             isRequestSent: true,
-            friendService: friendsService
           ),
         ),
       ),

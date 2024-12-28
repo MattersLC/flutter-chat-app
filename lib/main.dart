@@ -1,5 +1,5 @@
 //import 'package:chat_app/services/friend_request_service.dart';
-import 'package:chat_app/services/friends_service.dart';
+import 'package:chat_app/services/users_service.dart';
 import 'package:chat_app/services/theme_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +10,7 @@ import 'package:chat_app/services/auth_service.dart';
 import 'package:chat_app/services/socket_service.dart';
 import 'package:chat_app/services/chat_service.dart';
 
-import 'package:chat_app/global/theme.dart';
+//import 'package:chat_app/global/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(const MyApp());
@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => AuthService()),
         ChangeNotifierProvider(create: (_) => SocketService()),
         ChangeNotifierProvider(create: (_) => ChatService()),
-        ChangeNotifierProvider(create: (_) => FriendsService()),
+        ChangeNotifierProvider(create: (_) => UsersService()),
       ],
       child: Consumer<ThemeService>(
         builder: (context, themeService, _) {
