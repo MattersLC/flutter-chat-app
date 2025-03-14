@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 MessageResponse messageResponseFromJson(String str) =>
     MessageResponse.fromJson(json.decode(str));
 
@@ -44,18 +46,18 @@ class Message {
   });
 
   factory Message.fromJson(Map<String, dynamic> json) => Message(
-        from: json["from"],
-        to: json["to"],
-        message: json["message"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-      );
+    from: json["from"],
+    to: json["to"],
+    message: json["message"],
+    createdAt: DateTime.parse(json["createdAt"]).toLocal(),
+    updatedAt: DateTime.parse(json["updatedAt"]).toLocal(),
+  );
 
   Map<String, dynamic> toJson() => {
-        "from": from,
-        "to": to,
-        "message": message,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-      };
+    "from": from,
+    "to": to,
+    "message": message,
+    "createdAt": createdAt.toLocal(),
+    "updatedAt": updatedAt.toLocal(),
+  };
 }

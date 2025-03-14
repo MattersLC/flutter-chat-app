@@ -1,4 +1,5 @@
-//import 'package:chat_app/services/friend_request_service.dart';
+import 'package:chat_app/services/chats_service.dart';
+import 'package:chat_app/services/storage/storage_service.dart';
 import 'package:chat_app/services/users_service.dart';
 import 'package:chat_app/services/theme_service.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +11,21 @@ import 'package:chat_app/services/auth_service.dart';
 import 'package:chat_app/services/socket_service.dart';
 import 'package:chat_app/services/chat_service.dart';
 
-//import 'package:chat_app/global/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() => runApp(const MyApp());
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+//void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const MyApp());
+}
+
+/**/
 
 class MyApp extends StatefulWidget {
   static _MyAppState? of(BuildContext context) =>
@@ -34,7 +46,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => AuthService()),
         ChangeNotifierProvider(create: (_) => SocketService()),
         ChangeNotifierProvider(create: (_) => ChatService()),
+        ChangeNotifierProvider(create: (_) => ChatsService()),
         ChangeNotifierProvider(create: (_) => UsersService()),
+        ChangeNotifierProvider(create: (_) => StorageService()),
       ],
       child: Consumer<ThemeService>(
         builder: (context, themeService, _) {

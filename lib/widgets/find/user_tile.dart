@@ -1,4 +1,5 @@
 import 'package:chat_app/models/send_friend_request_response.dart';
+import 'package:chat_app/widgets/avatar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -77,7 +78,16 @@ class UserTile extends StatelessWidget {
         user.about,
         style: TextStyle(color: theme.hintColor),
       ),
-      leading: Stack(
+      leading: Avatar(
+        profilePicture: user.profilePicture,
+        name: user.name,
+        radius: 25,
+        background: theme.secondaryHeaderColor,
+        foreground: theme.hintColor,
+        showStatus: true,
+        status: user.online,
+      ),
+      /*leading: Stack(
         children: [
           CircleAvatar(
             backgroundColor: theme.secondaryHeaderColor,
@@ -100,7 +110,7 @@ class UserTile extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      ),*/
       trailing: user.relationshipStatus == 'friends' ?
       IconButton(
         onPressed: () => showActionAlert(

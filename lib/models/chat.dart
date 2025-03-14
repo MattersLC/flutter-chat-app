@@ -1,41 +1,43 @@
-import 'package:chat_app/models/loggedin_user.dart';
-
 class Chat {
-  LoggedinUser user;
-  //String id;
-  //String name;
+  String uid;
+  String name;
+  bool online;
   String lastMessage;
   DateTime lastMessageTime;
   bool lastMessageViewed;
+  String profilePicture;
   final bool isPinned;
 
   Chat({
-    required this.user,
-    //required this.id,
-    //required this.name,
+    required this.uid,
+    required this.name,
+    required this.online,
     required this.lastMessage,
     required this.lastMessageTime,
     required this.lastMessageViewed,
+    required this.profilePicture,
     required this.isPinned,
   });
 
   factory Chat.fromJson(Map<String, dynamic> json) => Chat(
-    user: LoggedinUser.fromJson(json["user"]),
-    //id: json["_id"],
-    //name: json["name"],
+    uid: json["_id"],
+    name: json["name"],
+    online: json["online"],
     lastMessage: json["lastMessage"],
-    lastMessageTime: DateTime.parse(json["lastMessageTime"]),
+    lastMessageTime: DateTime.parse(json["lastMessageTime"]).toLocal(),
     lastMessageViewed: json["lastMessageViewed"],
+    profilePicture: json["profilePicture"],
     isPinned: json["isPinned"],
   );
 
   Map<String, dynamic> toJson() => {
-      "user": user.toJson(),
-      //"_id": id,
-      //"name": name,
+      "uid": uid,
+      "name": name,
+      "online": online,
       "lastMessage": lastMessage,
-      "lastMessageTime": lastMessageTime.toIso8601String(),
+      "lastMessageTime": lastMessageTime.toLocal(),
       "lastMessageViewed": lastMessageViewed,
+      "profilePicture": profilePicture,
       "isPinned": isPinned,
     };
 }

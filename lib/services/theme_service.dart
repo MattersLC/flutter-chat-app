@@ -42,8 +42,27 @@ class ThemeService with ChangeNotifier {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.all<Color>(ChatColors.contrast),
+        textStyle: WidgetStateProperty.all<TextStyle>(TextStyle(color: ChatColors.grayLight2))
       ),
     ),
+    inputDecorationTheme: InputDecorationTheme(
+      fillColor: ChatColors.secondaryDark,
+      //fillColor: Colors.transparent,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: BorderSide.none,
+      ),
+      contentPadding: const EdgeInsets.symmetric(
+        vertical: 16.0,
+        horizontal: 12.0,
+      ),
+    ),
+    bottomSheetTheme: BottomSheetThemeData(
+      backgroundColor: ChatColors.secondaryDark,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+    )
   );
 
   final ThemeData lightTheme = ThemeData(
@@ -65,7 +84,7 @@ class ThemeService with ChangeNotifier {
     textTheme: const TextTheme(
       titleLarge: TextStyle(color: ChatColors.grayLight),
       bodyLarge: TextStyle(color: ChatColors.grayLight2),
-      bodyMedium: TextStyle(color: ChatColors.grayLight),
+      bodyMedium: TextStyle(color: ChatColors.black),
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: ChatColors.secondaryLight,
@@ -83,6 +102,19 @@ class ThemeService with ChangeNotifier {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.all<Color>(ChatColors.contrast),
+        textStyle: WidgetStateProperty.all<TextStyle>(TextStyle(color: ChatColors.grayLight2))
+      ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      fillColor: ChatColors.secondaryLight.withOpacity(0.5),
+      //fillColor: Colors.transparent,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        borderSide: BorderSide.none,
+      ),
+      contentPadding: const EdgeInsets.symmetric(
+        vertical: 16.0,
+        horizontal: 12.0,
       ),
     ),
   );

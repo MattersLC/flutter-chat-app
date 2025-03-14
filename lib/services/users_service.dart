@@ -140,8 +140,10 @@ class UsersService with ChangeNotifier {
         },
       );
 
-      //print(res.body);
       final data = sentFriendRequestsResponseFromJson(res.body);
+      print(data.totalSentFriendRequests);
+      _totalSentFriendRequests = data.totalSentFriendRequests;
+      notifyListeners();
 
       return data.totalSentFriendRequests;
     } catch (error) {

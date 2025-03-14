@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chat_app/widgets/avatar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -27,14 +29,29 @@ class UserLabel extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           subtitle: Text(authService.user!.about),
-          leading: CircleAvatar(
+          leading: Avatar(
+            profilePicture: authService.user!.profilePicture,
+            name: authService.user!.name,
+            radius: 30,
+          ),
+          /*leading: CircleAvatar(
             radius: 30,
             backgroundColor: theme.primaryColor,
-            child: Text(
+            child: authService.user!.profilePicture != '' ?
+            ClipOval(
+              child: CachedNetworkImage(
+                fit: BoxFit.cover, // Ensures the image covers the entire area 
+                width: 60, // Match the CircleAvatar radius * 2 
+                height: 60, // Match the CircleAvatar radius * 2
+                imageUrl: authService.user!.profilePicture,
+              ),
+            )
+             :
+            Text(
               authService.user!.name.substring(0, 2),
               style: TextStyle(color: theme.highlightColor),
             ),
-          ),
+          ),*/
         ),
         Container(
           color: theme.dividerColor,

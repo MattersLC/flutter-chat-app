@@ -1,4 +1,4 @@
-import 'package:chat_app/services/socket_service.dart';
+/*import 'package:chat_app/services/socket_service.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/global/chat_colors.dart';
 
@@ -42,3 +42,4 @@ class ChatAppBar extends AppBar {
           ],
         );
 }
+*/

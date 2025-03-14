@@ -1,3 +1,5 @@
+import 'package:chat_app/helpers/response_animation_dialog.dart';
+import 'package:chat_app/screens/test_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chat_app/services/theme_service.dart';
@@ -34,7 +36,9 @@ class SettingsScreen extends StatelessWidget {
             icon: Icons.support_outlined,
             title: 'Support',
             topRadius: 15,
-            onTap: () => Navigator.of(context).pushNamed('profile-details'),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => TestScreen())
+            ),
           ),
           Container(
             color: theme.dividerColor,

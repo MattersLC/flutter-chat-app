@@ -77,20 +77,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   )
           ),
-          Container(
-            margin: const EdgeInsets.only(right: 16),
-            child: const Badge(
-              backgroundColor: ChatColors.rose,
-              child: Icon(
-                Icons.notifications,
-                size: 30,
-              ),
-            ),
-            /*child: const Icon(
-              Icons.notifications,
-              size: 30,
-            ),*/
-          ),
         ],
       ),
       body: _buildBody(),
@@ -105,6 +91,8 @@ class _HomeScreenState extends State<HomeScreen> {
         switch (index) {
           case 0: // Chats
             return const ChatsScreen();
+          case 1:
+            return Center(child: Text('Coming Soon!'),);
           case 2: // Contacts
             return const FriendsScreen();
           case 3:

@@ -46,12 +46,12 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   void _loadHistory(String userID) async {
     List<Message> chat = await chatService.getChat(userID);
     final history = chat.map((m) => ChatMessage(
-          text: m.message,
-          uid: m.from,
-          animationController: AnimationController(
-              vsync: this, duration: const Duration(milliseconds: 0))
-            ..forward(),
-        ));
+      text: m.message,
+      uid: m.from,
+      animationController: AnimationController(
+          vsync: this, duration: const Duration(milliseconds: 0))
+        ..forward(),
+    ));
 
     setState(() {
       _messages.insertAll(0, history);

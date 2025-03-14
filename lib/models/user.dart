@@ -4,6 +4,7 @@ class User {
   final String lastName;
   final String email;
   final String about;
+  final String profilePicture;
   String relationshipStatus;
   final bool online;
   final dynamic lastConnection;
@@ -14,6 +15,7 @@ class User {
     required this.lastName,
     required this.email,
     required this.about,
+    required this.profilePicture,
     required this.relationshipStatus,
     required this.online,
     required this.lastConnection,
@@ -25,6 +27,7 @@ class User {
     lastName: json["lastName"],
     email: json["email"],
     about: json["about"],
+    profilePicture: json["profilePicture"],
     relationshipStatus: json["relationshipStatus"],
     online: json["online"],
     lastConnection: json["lastConnection"],
@@ -36,6 +39,7 @@ class User {
     "lastName": lastName,
     "email": email,
     "about": about,
+    "profilePicture": profilePicture,
     "relationshipStatus": relationshipStatus,
     "online": online,
     "lastConnection": lastConnection,

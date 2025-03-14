@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 class UserDetailsContainer extends StatelessWidget {
   final String header;
   final String content;
+  final Function() onTap;
   const UserDetailsContainer({
     required this.header,
     required this.content,
+    required this.onTap,
     super.key
   });
 
@@ -14,10 +16,10 @@ class UserDetailsContainer extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       margin: EdgeInsets.only(top: 20),
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      //padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
         color: theme.secondaryHeaderColor,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,16 +27,23 @@ class UserDetailsContainer extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(header),
-              InkWell(
-                onTap: () {},
-                child: Icon(Icons.edit, size: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: Text(header),
               ),
+              IconButton(
+                onPressed: onTap,
+                icon: Icon(Icons.edit),
+                iconSize: 16,
+              )
             ],
           ),
-          Text(
-            content,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          Padding(
+            padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+            child: Text(
+              content,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),
